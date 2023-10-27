@@ -10,6 +10,7 @@ import {
   View,
   useColorScheme,
 } from 'react-native';
+import {EyeIcon, EyeSlashIcon} from 'react-native-heroicons/outline';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
 const LoginScreen = () => {
@@ -18,11 +19,12 @@ const LoginScreen = () => {
   const [islogin, setIsLogin] = useState(true);
   const [username, setUsername] = useState('');
   const colorTheme = useColorScheme();
+  const [hidePassword, setHidePassword] = useState(true);
 
   const signup = () => {
     auth()
       .createUserWithEmailAndPassword(email, password)
-      .then(user => {
+      .then(u => {
         // console.log('User account created & singed in');
         ToastAndroid.showWithGravity(
           'New User is created successfully',
@@ -30,15 +32,15 @@ const LoginScreen = () => {
           ToastAndroid.TOP,
         );
 
-        // firestore()
-        //   .collection('Users')
-        //   .doc(user?.uid)
-        //   .set({
-        //     username: username,
-        //   })
-        //   .catch(error => {
-        //     console.error(error);
-        //   });
+        firestore()
+          .collection('Users')
+          .doc(u?.user.uid)
+          .set({
+            username: username,
+          })
+          .catch(error => {
+            console.error(error);
+          });
       })
       .catch(error => {
         if (error.code === 'auth/email-already-in-use') {
@@ -105,7 +107,7 @@ const LoginScreen = () => {
           className="w-20 h-20 rounded-full"
         />
 
-        <View className="space-y-6">
+        <View className="space-y-6 items-center">
           {!islogin && (
             <TextInput
               placeholder="Username"
@@ -123,13 +125,23 @@ const LoginScreen = () => {
             autoComplete="email"
             onChangeText={text => setEmail(text)}
           />
-          <TextInput
-            placeholder="Password"
-            className="border border-gray-600 w-60 p-3 rounded-md"
-            value={password}
-            autoComplete="password"
-            onChangeText={text => setPassword(text)}
-          />
+          <View className="flex-row items-center space-x-3 rounded-md border border-gray-600 px-1">
+            <TextInput
+              placeholder="Password"
+              className=" w-60 p-3 rounded-md"
+              value={password}
+              autoComplete="password"
+              secureTextEntry={hidePassword}
+              onChangeText={text => setPassword(text)}
+            />
+            <TouchableOpacity onPress={() => setHidePassword(!hidePassword)}>
+              {hidePassword ? (
+                <EyeSlashIcon color={colorTheme === 'dark' ? '#fff' : '#000'} />
+              ) : (
+                <EyeIcon color={colorTheme === 'dark' ? '#fff' : '#000'} />
+              )}
+            </TouchableOpacity>
+          </View>
         </View>
 
         <TouchableOpacity onPress={islogin ? login : signup}>
