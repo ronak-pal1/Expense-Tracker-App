@@ -99,7 +99,7 @@ const ExpenseScreen = ({route}: {route: any}) => {
 
   return (
     <>
-      <Header />
+      <Header username={route.params.username} />
       <View
         className={`flex-1 bg-slate-50 ${
           colorTheme === 'dark' ? 'bg-zinc-900' : 'bg-gray-100'

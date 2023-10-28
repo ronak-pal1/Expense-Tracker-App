@@ -23,8 +23,8 @@ const HomeScreen = () => {
   const [isAddBasketOn, setIsAddBasketOn] = useState(false);
   const [bucketName, setBucketName] = useState('');
   const [balance, setBalance] = useState('');
+  const [username, setUsername] = useState('Username');
   const [buckets, setBuckets] = useState([]);
-  const [username, setUsername] = useState('');
   const colorTheme = useColorScheme();
 
   useEffect(() => {
@@ -36,6 +36,7 @@ const HomeScreen = () => {
   }, []);
 
   useEffect(() => {
+    // for getting all the buckets
     const subscriber = firestore()
       .collection('Users')
       .doc(user?.uid)
@@ -52,6 +53,26 @@ const HomeScreen = () => {
         });
         setBuckets(allData);
       });
+
+    // for setting the username
+    if (user) {
+      const getUsername = async () => {
+        await firestore()
+          .collection('Users')
+          .doc(user?.uid)
+          .get()
+          .then(info => {
+            setUsername(info?._data.username);
+          })
+          .catch(error => {
+            console.log('username not found');
+          });
+      };
+
+      getUsername();
+    } else {
+      setUsername('Username');
+    }
 
     return subscriber;
   }, [user]);
@@ -86,7 +107,7 @@ const HomeScreen = () => {
     <>
       {user ? (
         <>
-          <Header username={'username'} />
+          <Header username={username} />
           <ScrollView
             className={colorTheme === 'dark' ? 'bg-zinc-900' : 'bg-gray-100'}>
             <View>
@@ -111,6 +132,7 @@ const HomeScreen = () => {
                   spended={bucket.data.spended}
                   time={'' + bucket.data.timeStamp?.toDate()}
                   userId={user?.uid}
+                  username={username}
                 />
               ))}
             </View>

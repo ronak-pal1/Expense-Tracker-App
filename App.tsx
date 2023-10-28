@@ -8,6 +8,7 @@ import ExpenseScreen from './screens/ExpenseScreen';
 import SettingsScreen from './screens/SettingsScreen';
 import LoginScreen from './screens/LoginScreen';
 
+// ./gradlew assemblerelease --> to create a release app
 const Stack = createNativeStackNavigator();
 
 function App(): JSX.Element {

@@ -13,12 +13,14 @@ const MonthCard = ({
   spended,
   time,
   userId,
+  username,
 }: {
   label: String;
   target: Number;
   spended: Number;
   time: String;
   userId: String;
+  username: String;
 }) => {
   let color;
   let isGradient = false;
@@ -43,6 +45,7 @@ const MonthCard = ({
       target: target,
       time: time,
       userId: userId,
+      username: username,
     });
   };
 

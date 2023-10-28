@@ -1,11 +1,12 @@
 import {useNavigation} from '@react-navigation/native';
-import {Image, SafeAreaView, Text, View, useColorScheme} from 'react-native';
+import {useContext, useEffect, useState} from 'react';
+import {SafeAreaView, Text, View, useColorScheme} from 'react-native';
 import {Cog8ToothIcon, UserCircleIcon} from 'react-native-heroicons/outline';
+import firestore from '@react-native-firebase/firestore';
 
-const Header = ({username}: {username: String}) => {
+const Header = ({username}: {username: string}) => {
   const navigator = useNavigation();
   const colorTheme = useColorScheme();
-
   const goSettings = () => {
     navigator.navigate('Settings');
   };
@@ -14,7 +15,7 @@ const Header = ({username}: {username: String}) => {
     <SafeAreaView className={colorTheme === 'dark' ? 'bg-black' : 'bg-white'}>
       <View className="ml-5 mt-4 mb-3 flex-row items-center space-x-1">
         <Text className="text-blue-500 text-2xl">OwlSpender</Text>
-        <Text className="text-green-400 text-xs">v0.0.1</Text>
+        <Text className="text-green-400 text-xs">v1.0.0</Text>
       </View>
       <View className="flex-row items-center justify-between px-3 mt-4 mb-5">
         <View className="flex-row items-center space-x-3">
