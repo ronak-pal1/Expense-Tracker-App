@@ -97,6 +97,77 @@ const ExpenseScreen = ({route}: {route: any}) => {
     setAmount('');
   };
 
+  const formatDate = (timestamp: string): string => {
+    const dateObj = new Date(timestamp);
+    let month: string = '';
+    let day: string = '';
+
+    switch (dateObj.getDay()) {
+      case 0:
+        day = 'Sun';
+        break;
+      case 1:
+        day = 'Mon';
+        break;
+      case 2:
+        day = 'Tue';
+        break;
+      case 3:
+        day = 'Wed';
+        break;
+      case 4:
+        day = 'Thur';
+        break;
+      case 5:
+        day = 'Fri';
+        break;
+      case 6:
+        day = 'Sat';
+        break;
+    }
+
+    switch (dateObj.getMonth()) {
+      case 0:
+        month = 'Jan';
+        break;
+      case 1:
+        month = 'Feb';
+        break;
+      case 2:
+        month = 'Mar';
+        break;
+      case 3:
+        month = 'Apr';
+        break;
+      case 4:
+        month = 'May';
+        break;
+      case 5:
+        month = 'Jun';
+        break;
+      case 6:
+        month = 'July';
+        break;
+      case 7:
+        month = 'Aug';
+        break;
+      case 8:
+        month = 'Sep';
+        break;
+      case 9:
+        month = 'Oct';
+        break;
+      case 10:
+        month = 'Nov';
+        break;
+      case 11:
+        month = 'Dec';
+        break;
+    }
+
+    return `${day}, ${dateObj.getDate()} ${month}, ${dateObj.getFullYear()}`;
+  };
+
   return (
     <>
       <Header username={route.params.username} />
@@ -104,9 +175,9 @@ const ExpenseScreen = ({route}: {route: any}) => {
         className={`flex-1 bg-slate-50 ${
           colorTheme === 'dark' ? 'bg-zinc-900' : 'bg-gray-100'
         }`}>
-        <View className="flex-row items-center justify-between mx-4 mb-3 mt-4">
+        <View className="flex-row items-center justify-between mx-4 mb-1 mt-1">
           <Text
-            className={`text-2xl ${
+            className={`text-lg ${
               colorTheme === 'dark' ? 'text-gray-200' : 'text-slate-900'
             } font-light`}>
             {route.params.label}
@@ -114,7 +185,7 @@ const ExpenseScreen = ({route}: {route: any}) => {
           <Text
             className={`${
               colorTheme === 'dark' ? 'text-gray-400' : 'text-slate-600'
-            } font-extralight`}>
+            } font-extralight text-xs`}>
             {route.params.time}
           </Text>
         </View>
@@ -127,7 +198,7 @@ const ExpenseScreen = ({route}: {route: any}) => {
               id={item?.id}
               label={item?.data.label}
               amount={item?.data.amount}
-              time={'' + item?.data.timeStamp?.toDate()}
+              time={formatDate(item?.data.timeStamp?.toDate())}
               userId={route.params.userId}
               bucketLabel={route.params.label}
             />
@@ -140,38 +211,47 @@ const ExpenseScreen = ({route}: {route: any}) => {
               colorTheme === 'dark' ? 'border-gray-200' : 'border-slate-400'
             }`}>
             <Text
-              className={`ml-5 mt-2 text-xl font-light  ${
-                colorTheme === 'dark' ? 'text-gray-200' : 'text-slate-800'
-              }`}>
-              Total: <Text className="font-medium">₹{totalAmount}</Text>
-            </Text>
-            <Text
-              className={`ml-5 mt-2 text-xl font-ligh ${
+              className={`ml-5 mt-2 text-xs font-ligh ${
                 colorTheme === 'dark' ? 'text-gray-200' : 'text-slate-800'
               }`}>
               Balance:{' '}
               <Text className="font-medium">₹{route.params.target}</Text>
             </Text>
+            <Text
+              className={`ml-5 mt-2 text-xs font-ligh ${
+                colorTheme === 'dark' ? 'text-gray-200' : 'text-slate-800'
+              }`}>
+              Remaining:{' '}
+              <Text className="font-medium">
+                ₹{route.params.target - totalAmount}
+              </Text>
+            </Text>
+            <Text
+              className={`ml-5 mt-2 text-xs font-light  ${
+                colorTheme === 'dark' ? 'text-gray-200' : 'text-slate-800'
+              }`}>
+              Total: <Text className="font-medium">₹{totalAmount}</Text>
+            </Text>
           </View>
 
           <Text
-            className={`ml-5 mt-2 text-xl font-light ${
+            className={`ml-3 mt-2 text-base font-light ${
               colorTheme === 'dark' ? 'text-gray-200' : 'text-slate-800'
             }`}>
             Add Expense
           </Text>
-          <View className=" p-5 flex-row items-center justify-between">
+          <View className=" p-2 flex-row items-center justify-between">
             <View className="flex-row items-center space-x-2">
               <TextInput
-                placeholder="Label"
-                className="border border-slate-400 rounded-md w-1/2 pl-2"
+                placeholder="Particulars"
+                className="border border-slate-400 rounded-md w-1/2 pl-2 py-1"
                 value={label}
                 onChangeText={text => setLabel(text)}
               />
               <TextInput
                 placeholder="Amount"
                 keyboardType="numeric"
-                className="border border-slate-400 rounded-md w-1/3 pl-2"
+                className="border border-slate-400 rounded-md w-1/3 pl-2 py-1"
                 value={amount}
                 autoComplete="off"
                 onChangeText={text => setAmount(text)}
@@ -179,7 +259,7 @@ const ExpenseScreen = ({route}: {route: any}) => {
             </View>
 
             <TouchableOpacity onPress={createItem}>
-              <PaperAirplaneIcon size={30} color="#2248f0" />
+              <PaperAirplaneIcon size={20} color="#2248f0" />
             </TouchableOpacity>
           </View>
         </View>

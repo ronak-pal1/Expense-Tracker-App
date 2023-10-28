@@ -13,24 +13,24 @@ const Header = ({username}: {username: string}) => {
 
   return (
     <SafeAreaView className={colorTheme === 'dark' ? 'bg-black' : 'bg-white'}>
-      <View className="ml-5 mt-4 mb-3 flex-row items-center space-x-1">
-        <Text className="text-blue-500 text-2xl">OwlSpender</Text>
+      <View className="ml-3 mt-2 mb-2 flex-row items-center space-x-1">
+        <Text className="text-blue-500 text-lg">OwlSpender</Text>
         <Text className="text-green-400 text-xs">v1.0.0</Text>
       </View>
-      <View className="flex-row items-center justify-between px-3 mt-4 mb-5">
+      <View className="flex-row items-center justify-between px-3 mt-2 mb-2">
         <View className="flex-row items-center space-x-3">
           <UserCircleIcon
-            size={40}
+            size={25}
             color={colorTheme === 'dark' ? '#9d9c9c' : 'black'}
           />
           <Text
             className={`${
               colorTheme === 'dark' ? 'text-white' : 'text-slate-800'
-            } text-xl font-light`}>
+            } text-base font-light`}>
             {username}
           </Text>
         </View>
-        <Cog8ToothIcon size={30} color="#2248f0" onPress={goSettings} />
+        <Cog8ToothIcon size={20} color="#2248f0" onPress={goSettings} />
       </View>
     </SafeAreaView>
   );

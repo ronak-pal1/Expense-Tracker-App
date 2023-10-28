@@ -44,15 +44,15 @@ const SettingsScreen = () => {
         <View
           className={` ${
             colorTheme === 'dark' ? 'bg-black' : 'bg-white'
-          } py-5 px-4 flex-row items-center space-x-5 mb-3`}>
+          } py-3 px-4 flex-row items-center space-x-5 mb-3`}>
           <TouchableOpacity onPress={() => navigator.goBack()}>
             <ArrowLeftIcon
-              size={30}
+              size={20}
               color={colorTheme === 'dark' ? 'white' : 'black'}
             />
           </TouchableOpacity>
           <Text
-            className={`text-2xl  ${
+            className={`text-lg  ${
               colorTheme === 'dark' ? 'text-gray-100' : 'text-black'
             }`}>
             Settings
@@ -63,8 +63,8 @@ const SettingsScreen = () => {
             <View
               className={`px-4 bg-black ${
                 colorTheme === 'dark' ? 'bg-black' : 'bg-white'
-              } py-5`}>
-              <Text className="text-xl text-red-600">Logout</Text>
+              } py-3`}>
+              <Text className="text-base text-red-600">Logout</Text>
             </View>
           </TouchableOpacity>
         </View>

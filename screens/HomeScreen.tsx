@@ -10,6 +10,7 @@ import {
 import {
   PaperAirplaneIcon,
   PlusCircleIcon,
+  SwatchIcon,
 } from 'react-native-heroicons/outline';
 import MonthCard from '../components/MonthCard';
 import Header from '../components/Header';
@@ -103,6 +104,77 @@ const HomeScreen = () => {
     setIsAddBasketOn(false);
   };
 
+  const formatDate = (timestamp: string): string => {
+    const dateObj = new Date(timestamp);
+    let month: string = '';
+    let day: string = '';
+
+    switch (dateObj.getDay()) {
+      case 0:
+        day = 'Sun';
+        break;
+      case 1:
+        day = 'Mon';
+        break;
+      case 2:
+        day = 'Tue';
+        break;
+      case 3:
+        day = 'Wed';
+        break;
+      case 4:
+        day = 'Thur';
+        break;
+      case 5:
+        day = 'Fri';
+        break;
+      case 6:
+        day = 'Sat';
+        break;
+    }
+
+    switch (dateObj.getMonth()) {
+      case 0:
+        month = 'Jan';
+        break;
+      case 1:
+        month = 'Feb';
+        break;
+      case 2:
+        month = 'Mar';
+        break;
+      case 3:
+        month = 'Apr';
+        break;
+      case 4:
+        month = 'May';
+        break;
+      case 5:
+        month = 'Jun';
+        break;
+      case 6:
+        month = 'July';
+        break;
+      case 7:
+        month = 'Aug';
+        break;
+      case 8:
+        month = 'Sep';
+        break;
+      case 9:
+        month = 'Oct';
+        break;
+      case 10:
+        month = 'Nov';
+        break;
+      case 11:
+        month = 'Dec';
+        break;
+    }
+
+    return `${day}, ${dateObj.getDate()} ${month}, ${dateObj.getFullYear()}`;
+  };
+
   return (
     <>
       {user ? (
@@ -113,14 +185,14 @@ const HomeScreen = () => {
             <View>
               <View className="flex-row items-center justify-between mx-4 mt-4">
                 <Text
-                  className={`text-2xl ${
+                  className={`text-lg ${
                     colorTheme === 'dark' ? 'text-gray-200' : 'text-slate-900'
                   } font-light`}>
                   Buckets
                 </Text>
                 <TouchableOpacity
                   onPress={() => setIsAddBasketOn(!isAddBasketOn)}>
-                  <PlusCircleIcon size={30} color="#2248f0" />
+                  <PlusCircleIcon size={20} color="#2248f0" />
                 </TouchableOpacity>
               </View>
 
@@ -130,7 +202,7 @@ const HomeScreen = () => {
                   label={bucket.id}
                   target={bucket.data.balance}
                   spended={bucket.data.spended}
-                  time={'' + bucket.data.timeStamp?.toDate()}
+                  time={formatDate(bucket.data.timeStamp?.toDate())}
                   userId={user?.uid}
                   username={username}
                 />
@@ -141,23 +213,23 @@ const HomeScreen = () => {
           {isAddBasketOn && (
             <View className={colorTheme === 'dark' ? 'bg-black' : 'bg-white'}>
               <Text
-                className={`ml-5 mt-2 text-xl font-light${
+                className={`ml-3 mt-2 text-base font-light${
                   colorTheme === 'dark' ? 'text-gray-200' : 'text-slate-800'
                 }`}>
                 Add a new basket
               </Text>
-              <View className=" p-5 flex-row items-center justify-between">
+              <View className=" p-3 flex-row items-center justify-between">
                 <View className="flex-row items-center space-x-2">
                   <TextInput
                     placeholder="Basket Name"
-                    className="border border-slate-400 rounded-md w-1/2 pl-2"
+                    className="border border-slate-400 rounded-md w-1/2 pl-2 py-1"
                     value={bucketName}
                     onChangeText={text => setBucketName(text)}
                   />
                   <TextInput
                     placeholder="Balance"
                     keyboardType="numeric"
-                    className="border border-slate-400 rounded-md w-1/3 pl-2"
+                    className="border border-slate-400 rounded-md w-1/3 pl-2 py-1"
                     value={balance}
                     autoComplete="off"
                     onChangeText={text => setBalance(text)}
@@ -165,7 +237,7 @@ const HomeScreen = () => {
                 </View>
 
                 <TouchableOpacity onPress={createBucket}>
-                  <PaperAirplaneIcon size={30} color="#2248f0" />
+                  <PaperAirplaneIcon size={20} color="#2248f0" />
                 </TouchableOpacity>
               </View>
             </View>

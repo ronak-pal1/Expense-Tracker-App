@@ -104,14 +104,14 @@ const LoginScreen = () => {
       <View className="space-y-5 items-center">
         <Image
           source={require('../assets/OwlSpend.jpg')}
-          className="w-20 h-20 rounded-full"
+          className="w-16 h-16 rounded-full"
         />
 
         <View className="space-y-6 items-center">
           {!islogin && (
             <TextInput
               placeholder="Username"
-              className="border border-gray-600 w-60 p-3 rounded-md"
+              className="border border-gray-600 w-60 py-1 px-3 rounded-md"
               value={username}
               autoComplete="username"
               onChangeText={text => setUsername(text)}
@@ -120,7 +120,7 @@ const LoginScreen = () => {
 
           <TextInput
             placeholder="Email"
-            className="border border-gray-600 w-60 p-3 rounded-md"
+            className="border border-gray-600 w-60 py-1 px-3 rounded-md"
             value={email}
             autoComplete="email"
             onChangeText={text => setEmail(text)}
@@ -128,7 +128,7 @@ const LoginScreen = () => {
           <View className="flex-row items-center space-x-3 rounded-md border border-gray-600 px-1">
             <TextInput
               placeholder="Password"
-              className=" w-60 p-3 rounded-md"
+              className=" w-60 py-1 px-3 rounded-md"
               value={password}
               autoComplete="password"
               secureTextEntry={hidePassword}
@@ -136,9 +136,15 @@ const LoginScreen = () => {
             />
             <TouchableOpacity onPress={() => setHidePassword(!hidePassword)}>
               {hidePassword ? (
-                <EyeSlashIcon color={colorTheme === 'dark' ? '#fff' : '#000'} />
+                <EyeSlashIcon
+                  color={colorTheme === 'dark' ? '#fff' : '#000'}
+                  size={20}
+                />
               ) : (
-                <EyeIcon color={colorTheme === 'dark' ? '#fff' : '#000'} />
+                <EyeIcon
+                  color={colorTheme === 'dark' ? '#fff' : '#000'}
+                  size={20}
+                />
               )}
             </TouchableOpacity>
           </View>
@@ -148,9 +154,9 @@ const LoginScreen = () => {
           <View
             className={`border  ${
               colorTheme === 'dark' ? 'border-gray-50' : 'border-gray-800'
-            } p-2 rounded-md items-center justify-center w-28`}>
+            } p-1 rounded-md items-center justify-center w-28`}>
             <Text
-              className={`text-xl ${
+              className={`text-base ${
                 colorTheme === 'dark' ? 'text-gray-100' : 'text-black'
               }`}>
               {islogin ? 'Login' : 'Signup'}
@@ -159,7 +165,7 @@ const LoginScreen = () => {
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => setIsLogin(!islogin)}>
-          <Text className="text-blue-700 font-light">
+          <Text className="text-blue-700 font-light text-xs">
             {islogin ? 'Create a new user' : 'Login with previous account'}
           </Text>
         </TouchableOpacity>
