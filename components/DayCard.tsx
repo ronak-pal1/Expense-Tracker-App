@@ -95,50 +95,25 @@ const DayCard = ({
   return (
     <View className="flex-row items-center">
       <Text
-        className={`ml-2 text-xl ${
+        className={`ml-1 text-base ${
           colorTheme === 'dark' ? 'text-gray-200' : 'text-slate-700'
         } font-light`}>
         {String(index)}
       </Text>
       <View className="flex-1">
-        <View className="bg-green-400 mx-4 my-5 px-3 py-4 rounded-md flex-row items-center justify-between">
-          <View className="">
-            <Text className="text-slate-600">{time}</Text>
-            <Text className="text-base pt-1 text-black font-semibold">
-              {label}
-            </Text>
-          </View>
-
-          <View className="flex-row space-x-5 items-center">
-            <Text className="text-slate-700 font-semibold text-xl">
-              ₹{amount}
-            </Text>
-            <TouchableOpacity>
-              <PencilSquareIcon
-                size={23}
-                color="#605c5c"
-                onPress={() => setShowUpdateSection(!showUpdateSection)}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={removeCard}>
-              <TrashIcon size={23} color="#ff0000" />
-            </TouchableOpacity>
-          </View>
-        </View>
-
         {showUpdateSection && (
-          <View className=" p-5 flex-row items-center justify-between">
+          <View className=" p-1 flex-row items-center justify-between">
             <View className="flex-row items-center space-x-2">
               <TextInput
-                placeholder="Label"
-                className="border border-slate-400 rounded-md w-1/2 pl-2"
+                placeholder="Particulars"
+                className="border border-slate-400 rounded-md w-1/2 pl-2 py-1"
                 value={changedLabel}
                 onChangeText={text => setChangedLabel(text)}
               />
               <TextInput
                 placeholder="Amount"
                 keyboardType="numeric"
-                className="border border-slate-400 rounded-md w-1/3 pl-2"
+                className="border border-slate-400 rounded-md w-1/3 pl-2 py-1"
                 value={changedAmount}
                 autoComplete="off"
                 onChangeText={text => setChangedAmount(text)}
@@ -146,14 +121,36 @@ const DayCard = ({
             </View>
 
             <TouchableOpacity onPress={updateCard}>
-              <CheckIcon size={30} color="#2248f0" />
+              <CheckIcon size={20} color="#2248f0" />
             </TouchableOpacity>
 
             <TouchableOpacity onPress={() => setShowUpdateSection(false)}>
-              <XMarkIcon size={30} color="#ef3535" />
+              <XMarkIcon size={20} color="#ef3535" />
             </TouchableOpacity>
           </View>
         )}
+
+        <View className="bg-green-400 mx-2 my-5 px-3 py-4 rounded-md">
+          <Text className="text-slate-600 text-xs">{time}</Text>
+          <View className="flex-row items-center justify-between">
+            <Text className="text-sm pt-1 text-black font-semibold">
+              {label}
+            </Text>
+
+            <View className="flex-row space-x-5 items-center">
+              <Text className="text-slate-700 font-semibold text-sm">
+                ₹{amount}
+              </Text>
+              <TouchableOpacity
+                onPress={() => setShowUpdateSection(!showUpdateSection)}>
+                <PencilSquareIcon size={20} color="#2248f0" />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={removeCard}>
+                <TrashIcon size={20} color="#ff0000" />
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
       </View>
     </View>
   );
